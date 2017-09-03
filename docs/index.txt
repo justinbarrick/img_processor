@@ -1,13 +1,13 @@
-Welcome to uvhue's documentation!
+Welcome to img_processor's documentation!
 ===================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-A hue client for :py:mod:`uvhttp`.
+An image processing microservice.
 
-.. autoclass:: uvhue.uvhue.Hue
+.. autoclass:: img_processor.img_processor.ImgProcessor
    :members:
 
 Indices and tables

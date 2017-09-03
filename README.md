@@ -1,3 +1,3 @@
-A hue client for [uvhttp](https://github.com/justinbarrick/uvhttp).
+An image processing microservice that returns the RGB values of an image posted to it.
 
-Read the [documentation](https://uvhue.readthedocs.io/en/latest).
+Read the [documentation](https://rgb-processor.readthedocs.io/en/latest).

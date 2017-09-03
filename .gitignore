@@ -4,7 +4,7 @@ __pycache__
 *.pyc
 .coverage
 build/
-.uvhue
+.img_processor
 coverage.xml
 dist
 docs/_build

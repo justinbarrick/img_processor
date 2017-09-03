@@ -4,10 +4,10 @@ import os
 requirements = os.path.join(os.path.dirname(__file__), 'requirements.txt')
 
 setup(
-    name='uvhue',
+    name='img_processor',
     version='0.1',
-    description='Hue client for uvhttp',
-    url='https://github.com/justinbarrick/uvhue',
-    packages=['uvhue'],
+    description='Image processing microservice',
+    url='https://github.com/justinbarrick/img_processor',
+    packages=['img_processor'],
     install_requires=[ r.rstrip() for r in open(requirements).readlines() ]
 )
