@@ -2,5 +2,6 @@ sphinx==1.6.3
 nose==1.3.7
 coverage==4.4.1
 sanic==0.5.2
-uvhttp==1.13
+uvhttp==1.18
 colorthief==0.2.1
+uvhue==0.2

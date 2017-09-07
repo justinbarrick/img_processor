@@ -1,14 +1,30 @@
 import concurrent.futures
 from nose.tools import *
 from uvhttp.utils import HttpServer
+from uvhue.rgb import is_grey
 from sanic.response import json
 import io
 import colorthief
 import asyncio
+import logging
+import time
 
 def process_img(image):
-    image = colorthief.ColorThief(io.BytesIO(image))
-    return image.get_color()
+    quality = 1
+
+    start = time.time()
+
+    cimage = colorthief.ColorThief(io.BytesIO(image))
+
+    colors = []
+    try:
+        colors = cimage.get_palette(color_count=10, quality=quality)
+
+        for color in colors:
+            if not is_grey(color, 25):
+                return color
+    finally:
+        logging.error("Processed album cover ({} bytes) in {} seconds at quality {}.".format(len(image), time.time() - start, quality))
 
 class ImgProcessor(HttpServer):
     def add_routes(self):
@@ -24,6 +40,10 @@ class ImgProcessor(HttpServer):
         image = self.loop.run_in_executor(self.executor, process_img, request.body)
         rgb = await image
         return json({"rgb": rgb})
+
+    def stop(self):
+        super().stop()
+        self.executor.shutdown()
 
 async def run():
     img = ImgProcessor(port=8092, https_port=8093)
