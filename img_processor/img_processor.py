@@ -46,7 +46,7 @@ class ImgProcessor(HttpServer):
         self.executor.shutdown()
 
 async def run():
-    img = ImgProcessor(port=8092, https_port=8093)
+    img = ImgProcessor(host='0.0.0.0', port=8092, https_host='0.0.0.0', https_port=8093)
     await img.start()
     return img
 
