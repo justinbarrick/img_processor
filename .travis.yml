@@ -4,9 +4,8 @@ python:
 sudo: required
 services:
 - docker
-build:
-- make build
 script:
+- make build
 - make test
 - pip install codacy-coverage && python-codacy-coverage -r coverage.xml
 deploy:
