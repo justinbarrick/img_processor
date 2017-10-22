@@ -23,3 +23,13 @@ async def test_img_processor_partial_white(server, loop):
     response = await session.post(b'http://img-processor/image', data=open('tests/test_data/mostly_grey', 'rb').read())
 
     assert_equal(response.json(), {"rgb": [111, 96, 70]})
+
+@http_server(ImgProcessor)
+async def test_img_processor_health(server, loop):
+    resolver = Resolver(loop)
+    resolver.add_to_cache(b'img-processor', 80, server.host.encode(), 60, port=server.port)
+
+    session = Session(10, loop, resolver=resolver)
+    response = await session.get(b'http://img-processor/health')
+
+    assert_equal(response.json(), {})

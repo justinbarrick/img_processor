@@ -30,6 +30,7 @@ class ImgProcessor(HttpServer):
     def add_routes(self):
         super().add_routes()
         self.app.add_route(self.process, '/image', methods=['POST'])
+        self.app.add_route(self.health, '/health')
         self.executor = concurrent.futures.ProcessPoolExecutor()
         self.loop = asyncio.get_event_loop()
 
@@ -41,12 +42,15 @@ class ImgProcessor(HttpServer):
         rgb = await image
         return json({"rgb": rgb})
 
+    async def health(self, request):
+        return json({})
+
     def stop(self):
         super().stop()
         self.executor.shutdown()
 
 async def run():
-    img = ImgProcessor(port=8092, https_port=8093)
+    img = ImgProcessor(host='0.0.0.0', port=8092, https_host='0.0.0.0', https_port=8093)
     await img.start()
     return img
 

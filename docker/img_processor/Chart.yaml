@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for the img-processor service.
+name: img-processor
+version: 0.2.0
