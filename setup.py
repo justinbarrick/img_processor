@@ -5,7 +5,7 @@ requirements = os.path.join(os.path.dirname(__file__), 'requirements.txt')
 
 setup(
     name='img_processor',
-    version='0.1',
+    version='0.2',
     description='Image processing microservice',
     url='https://github.com/justinbarrick/img_processor',
     packages=['img_processor'],
