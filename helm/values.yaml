@@ -1,0 +1,23 @@
+# Default values for img_processor.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+image:
+  repository: justinbarrick/img-processor
+  tag: VERSION
+  pullPolicy: IfNotPresent
+service:
+  name: img-processor
+  type: ClusterIP
+  ports:
+    - name: http
+      externalPort: 80
+      internalPort: 8092
+    - name: https
+      externalPort: 443
+      internalPort: 8093
+ingress:
+  enabled: true
+  host: img-processor.codesink.net
+  annotations:
+    kubernetes.io/ingress.class: cloudflare-warp

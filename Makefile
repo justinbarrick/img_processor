@@ -1,12 +1,18 @@
 .PHONY: build
+VERSION=$(shell git rev-list --count HEAD)-$(shell git describe --always --long)
+
 build:
-	docker build -t img_processor .
+	docker build -t justinbarrick/img-processor:$(VERSION) .
 
 .PHONY: test
 test:
-	docker run -v $(shell pwd):/app --entrypoint /usr/bin/make img_processor run-test
+	docker run -v $(shell pwd):/app --entrypoint /usr/bin/make justinbarrick/img-processor:$(VERSION) run-test
 
 .PHONY: run-test
 run-test:
 	nosetests -v -s --with-coverage --cover-xml-file=coverage.xml --cover-xml  
 	cd docs && make html
+
+.PHONY: deploy
+deploy:
+	cd helm; helm --debug upgrade --set image.tag=$(VERSION) hello .
