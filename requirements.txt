@@ -5,3 +5,4 @@ sanic==0.5.2
 uvhttp==1.18
 colorthief==0.2.1
 uvhue==0.4
+prometheus_client==0.1.0

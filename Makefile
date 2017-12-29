@@ -1,8 +1,12 @@
-.PHONY: build
 VERSION=$(shell git rev-list --count HEAD)-$(shell git describe --always --long)
 
+.PHONY: build
 build:
 	docker build -t justinbarrick/img-processor:$(VERSION) .
+
+.PHONY: push
+push:
+	docker push justinbarrick/img-processor:$(VERSION)
 
 .PHONY: test
 test:
@@ -15,4 +19,4 @@ run-test:
 
 .PHONY: deploy
 deploy:
-	cd helm; helm --debug upgrade --set image.tag=$(VERSION) hello .
+	cd helm; helm --debug upgrade --set image.tag=$(VERSION) elder-bumblebee .

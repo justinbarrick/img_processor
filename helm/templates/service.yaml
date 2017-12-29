@@ -7,8 +7,14 @@ metadata:
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  annotations:
+  {{- if .Values.service.metrics_enabled }}
+    prometheus.io/scrape: "true"
+   {{- if .Values.service.metrics_port }}
+    prometheus.io/port: "{{ .Values.service.metrics_port }}"
+   {{- end }}
+  {{- end }}
 spec:
-  type: {{ .Values.service.type }}
   ports:
   {{- range .Values.service.ports }}
     - port: {{ .externalPort }}

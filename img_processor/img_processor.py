@@ -1,3 +1,5 @@
+from prometheus_client import start_http_server, Summary
+
 import concurrent.futures
 from nose.tools import *
 from uvhttp.utils import HttpServer
@@ -9,6 +11,9 @@ import asyncio
 import logging
 import time
 
+PROCESSING_TIME = Summary('img_processing_time', 'Time spent processing images')
+
+@PROCESSING_TIME.time()
 def process_img(image):
     quality = 1
 
@@ -55,6 +60,8 @@ async def run():
     return img
 
 if __name__=='__main__':
+    start_http_server(8000)
+
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run())
     loop.run_forever()
