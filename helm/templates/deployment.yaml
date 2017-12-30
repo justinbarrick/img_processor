@@ -14,13 +14,6 @@ spec:
       labels:
         app: {{ template "name" . }}
         release: {{ .Release.Name }}
-      annotations:
-      {{- if .Values.service.metrics_enabled }}
-        prometheus.io/scrape: "true"
-        {{- if .Values.service.metrics_port }}
-        prometheus.io/port: "{{ .Values.service.metrics_port }}"
-        {{- end }}
-      {{- end }}
 
     spec:
       containers:
