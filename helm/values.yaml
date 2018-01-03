@@ -21,3 +21,5 @@ ingress:
   host: img-processor.codesink.net
   annotations:
     kubernetes.io/ingress.class: cloudflare-warp
+nodeSelector:
+  beta.kubernetes.io/arch: amd64
